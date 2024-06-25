@@ -31,12 +31,18 @@
                 <label for="host">Host</label>
                 <input type="text" id="host" name="host" required><br>
                 <label for="category">Category</label>
-                <input type="text" id="category" name="category" required><br><br>
+                <select id="category" name="category" required>
+                    <option value="" disabled selected>Select a category</option>
+                    <option value="Category1">Category1</option>
+                    <option value="Category2">Category2</option>
+                    <option value="Category3">Category3</option>
+                    <!-- Add more categories as needed -->
+                </select><br><br>
                 <button type="submit">Add</button>
             </form>
         </div>
 
-        <form action="/submit">
+        <form action="/submit" method="post">
             <button type="submit">Submit</button>
         </form>
 
