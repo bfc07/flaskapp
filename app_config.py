@@ -54,4 +54,4 @@ SESSION_TYPE = "filesystem"
 
 
 # postgresql local db
-SQLALCHEMY_DATABASE_URI = "postgresql://felixchen:707302@localhost:5432/test"
+SQLALCHEMY_DATABASE_URI = "postgresql://bofanchen:707302@localhost:5432/test"

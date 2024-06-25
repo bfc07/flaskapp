@@ -1,7 +1,8 @@
 import identity.web
 import requests
-from flask import Flask, redirect, render_template, request, session, url_for, flash
+from flask import Flask, redirect, render_template, request, session, url_for, flash, session
 from flask_session import Session
+from datetime import datetime
 
 import app_config
 
@@ -59,7 +60,7 @@ def logout():
     return redirect(auth.log_out(url_for("index", _external=True)))
 
 
-@app.get("/")
+@app.route("/")
 def index():
     if not (app.config["CLIENT_ID"] and app.config["CLIENT_SECRET"]):
         # This check is not strictly necessary.
@@ -70,26 +71,60 @@ def index():
     return render_template('index.html', user=auth.get_user())
 
 
-@app.post("/")
+@app.route("/submit", methods=['POST'])
 def handle_submit():
+    time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+
+    hosts = session.get('inputs', [])
+    for host_data in hosts:
+        host = User(
+            username=host_data['username'],
+            host=host_data['host'],
+            category=host_data['category'],
+            time=time
+        )
+
+        try:
+            db.session.add(host)
+            db.session.commit()
+            flash("Submitted", "success")
+        except IntegrityError:
+            db.session.rollback()  # Rollback the session in case of IntegrityError
+            flash("Host already exists.", "error")
+    
+    session.pop('inputs', None)  # Clear the session after submission
+    return redirect(url_for("index"))
+
+
+@app.route('/add', methods=['POST'])
+def handle_add():
     username = auth.get_user().get("name")
-    host = request.form.get("host")
+    host = request.form.get('host')
     category = request.form.get("category")
 
-    user = User(
-        username=username,
-        host=host,
-        category=category
-    )
-    
-    try:
-        db.session.add(user)
-        db.session.commit()
-        flash("Submitted", "success")
-    except IntegrityError:      # if a unique value is duplicated
-        flash("Host already exists.", "error")
+    print(host)
 
-    return redirect(url_for("index"))
+    if not host or not category:
+        flash("Both Host and Category are required.", "error")
+        return redirect(url_for('index'))
+
+    user_data = {
+        'username': username,
+        'host': host,
+        'category': category
+    }
+
+    print(user_data)
+
+    if 'inputs' not in session:
+        session['inputs'] = []
+    session['inputs'].append(user_data)
+    session.modified = True  # Mark session as modified
+
+    print(session.get('inputs', []))
+    
+    flash("Host added successfully.", "success")
+    return redirect(url_for('index'))
 
 
 

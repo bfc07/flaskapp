@@ -6,39 +6,42 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
 </head>
 <body>
-  <div class="container">
-    <div class="top-bar">
-      <div class="top-bar-content">
-        <span>Signed-in as: {{ user.get("name") }}</span>
-        <a href="{{ url_for('logout') }}" class="logout-button">Logout</a>
-      </div>
-    </div>
+    <div class="container">
+        <div class="profile">
+            <p>Signed-in as: {{ user.get("name") }}</p>
+            <a href="{{ url_for('logout') }}" class="logout-button">Logout</a>
+        </div>
 
-    <div class="form-container">
-      <form action="/" method="post">
-          <label for="host">Host</label>
-          <input type="text" id="host" name="host" required>
-          
-          <label for="category">Category</label>
-          <input type="text" id="category" name="category" required>
-          
-          <button type="submit">submit</button>
-      </form>
-    </div>
+        <div class="host_list">
+            <ul>
+                {% for input in session.get('inputs', []) %}
+                    <li>
+                        {{ input.host }} <br>
+                        {{ input.category }}
+                    </li>
+                {% endfor %}
+            </ul>
+            <button type="button" onclick="openForm()">Add</button>
+        </div>
 
-    <div class="alert-container">
-      {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-          {% for category, message in messages %}
-            <div class="alert {{ category }}">
-              {{ message }}
-            </div>
-          {% endfor %}
-        {% endif %}
-      {% endwith %}
-    </div>
+        <div class="popup-window" id="popup-window">
+            <h2>Submit Form</h2>
+            <form id="form" action="/add" method="post" onsubmit="return validateForm()">
+                <span class="close" onclick="closeForm()">&times;</span>
+                <label for="host">Host</label>
+                <input type="text" id="host" name="host" required><br>
+                <label for="category">Category</label>
+                <input type="text" id="category" name="category" required><br><br>
+                <button type="submit">Add</button>
+            </form>
+        </div>
 
-  </div>
+        <form action="/submit">
+            <button type="submit">Submit</button>
+        </form>
+
+        <script src="{{ url_for('static', filename='index.js') }}"></script>
+    </div>
 </body>
 </html>
 

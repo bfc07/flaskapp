@@ -4,13 +4,14 @@ from sqlalchemy import Integer, String
 from sqlalchemy.orm import Mapped, mapped_column
 
 class Base(DeclarativeBase):
-  pass
+    pass
 
 db = SQLAlchemy(model_class=Base)
 
 
 class User(db.Model):
-  id: Mapped[int] = mapped_column(primary_key=True)
-  username: Mapped[str] = mapped_column(unique=False)
-  host: Mapped[str] = mapped_column(unique=True)
-  category: Mapped[str] = mapped_column(unique=False)
+    id: Mapped[int] = mapped_column(primary_key=True)
+    username: Mapped[str] = mapped_column(unique=False)
+    host: Mapped[str] = mapped_column(unique=False)
+    category: Mapped[str] = mapped_column(unique=False)
+    time: Mapped[str] = mapped_column(unique=False)
