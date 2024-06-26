@@ -137,3 +137,10 @@ body {
 .submit-button:hover {
     background-color: #004c52;
 }
+
+.hr-line {
+    border: 0;
+    height: 1px;
+    background-color: #cccccc;
+    margin: 20px 0;
+}
