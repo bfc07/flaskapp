@@ -20,7 +20,6 @@ function displayInputs() {
     inputs.forEach((input, index) => {
         inputList.innerHTML += `<li>${input.field1} <br/> ${input.field2} <button onclick="removeInput(${index})">&times;</button></li> <br/>`;
     });
-    document.getElementById('hiddenInputs').value = JSON.stringify(inputs);
 }
 
 function removeInput(index) {
@@ -38,7 +37,9 @@ async function submitForm() {
             },
             body: JSON.stringify({ inputs }),
         });
-        
+        document.getElementById('inputList').innerHTML = '';
+        inputs = [];
+
     } else {
         alert('Please add at least one input');
     }

@@ -73,30 +73,21 @@ def index():
 
 @app.route("/submit", methods=['POST'])
 def handle_submit():
+    username=auth.get_user().get('name')
     time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-
-    hosts = session.get('inputs', [])
-
     data = request.get_json()
     inputs = data.get('inputs', [])
-    print(inputs)
 
+    for item in inputs:
+        input = {
+            "username":username,
+            "host":item['field1'],
+            "category":item['field2'],
+            "time":time
+        }
 
-        # host = Input(
-        #     username=host_data['username'],
-        #     host=host_data['host'],
-        #     category=host_data['category'],
-        #     time=time
-        # )
+        print(input)
 
-        # try:
-        #     db.session.add(host)
-        #     db.session.commit()
-        #     flash("Submitted", "success")
-        # except IntegrityError:
-        #     db.session.rollback()  # Rollback the session in case of IntegrityError
-        #     flash("Host already exists.", "error")
-    
     return redirect(url_for("index"))
 
 
