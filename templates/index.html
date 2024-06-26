@@ -7,31 +7,32 @@
 </head>
 <body>
     <div class="container">
-        <div class="profile">
+        <div class="top-bar">
             <p>Signed-in as: {{ user.get("name") }}</p>
             <a href="{{ url_for('logout') }}" class="logout-button">Logout</a>
         </div>
 
-        <ul id=""></ul>
-
         <div class="form-container">
             <form id="inputsForm" action="/submit" method="post">
-                <label for="field1">Host</label>
-                <input type="text" id="field1" name="field1"><br><br>
-                <select id="field2" name="category" required>
-                    <option value="" disabled selected>Select a category</option>
-                    <option value="Category1">Category1</option>
-                    <option value="Category2">Category2</option>
-                    <option value="Category3">Category3</option>
-                </select><br><br>
-                <button type="button" onclick="addInput()">Add Input</button><br><br>
-                <ul id="inputList"></ul>
-                <button type="button" onclick="submitForm()">Submit</button>
+                <div class="input-bar">
+                    <label for="field1">Host</label>
+                    <input type="text" id="field1" name="field1">
+                    <label for="field2">Category</label>
+                    <select id="field2" name="category" required>
+                        <option value="" disabled selected>Select a category</option>
+                        <option value="Category1">Category1</option>
+                        <option value="Category2">Category2</option>
+                        <option value="Category3">Category3</option>
+                    </select>
+                    <button type="button" onclick="addInput()">Add Input</button>
+                </div>
+                <div class="reserved-box">
+                    <ul id="inputList"></ul>
+                </div>
+                <button type="button" class="submit-button" onclick="submitForm()">Submit</button>
             </form>
         </div>
-
-        <script src="{{ url_for('static', filename='index.js') }}"></script>
     </div>
+    <script src="{{ url_for('static', filename='index.js') }}"></script>
 </body>
 </html>
-
