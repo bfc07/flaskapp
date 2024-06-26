@@ -12,38 +12,24 @@
             <a href="{{ url_for('logout') }}" class="logout-button">Logout</a>
         </div>
 
-        <div class="host_list">
-            <ul>
-                {% for input in session.get('inputs', []) %}
-                    <li>
-                        {{ input.host }} <br>
-                        {{ input.category }}
-                    </li>
-                {% endfor %}
-            </ul>
-            <button type="button" onclick="openForm()">Add</button>
-        </div>
+        <ul id=""></ul>
 
-        <div class="popup-window" id="popup-window">
-            <h2>Submit Form</h2>
-            <form id="form" action="/add" method="post" onsubmit="return validateForm()">
-                <span class="close" onclick="closeForm()">&times;</span>
-                <label for="host">Host</label>
-                <input type="text" id="host" name="host" required><br>
-                <label for="category">Category</label>
-                <select id="category" name="category" required>
+        <div class="form-container">
+            <form id="inputsForm" action="/submit" method="post">
+                <label for="field1">Host</label>
+                <input type="text" id="field1" name="field1"><br><br>
+                <select id="field2" name="category" required>
                     <option value="" disabled selected>Select a category</option>
                     <option value="Category1">Category1</option>
                     <option value="Category2">Category2</option>
                     <option value="Category3">Category3</option>
                 </select><br><br>
-                <button type="submit">Add</button>
+                <button type="button" onclick="addInput()">Add Input</button><br><br>
+                <ul id="inputList"></ul>
+                <input type="hidden" id="hiddenInputs" name="inputs">
+                <button type="button" onclick="submitForm()">Submit</button>
             </form>
         </div>
-
-        <form action="/submit" method="post">
-            <button type="submit">Submit</button>
-        </form>
 
         <script src="{{ url_for('static', filename='index.js') }}"></script>
     </div>

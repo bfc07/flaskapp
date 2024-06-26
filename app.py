@@ -7,7 +7,7 @@ from datetime import datetime
 import app_config
 
 # connection to database
-from models import db, User
+from models import db, Input
 from sqlalchemy.exc import IntegrityError
 
 
@@ -76,55 +76,28 @@ def handle_submit():
     time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
     hosts = session.get('inputs', [])
-    for host_data in hosts:
-        host = User(
-            username=host_data['username'],
-            host=host_data['host'],
-            category=host_data['category'],
-            time=time
-        )
 
-        try:
-            db.session.add(host)
-            db.session.commit()
-            flash("Submitted", "success")
-        except IntegrityError:
-            db.session.rollback()  # Rollback the session in case of IntegrityError
-            flash("Host already exists.", "error")
+    data = request.get_json()
+    inputs = data.get('inputs', [])
+    print(inputs)
+
+
+        # host = Input(
+        #     username=host_data['username'],
+        #     host=host_data['host'],
+        #     category=host_data['category'],
+        #     time=time
+        # )
+
+        # try:
+        #     db.session.add(host)
+        #     db.session.commit()
+        #     flash("Submitted", "success")
+        # except IntegrityError:
+        #     db.session.rollback()  # Rollback the session in case of IntegrityError
+        #     flash("Host already exists.", "error")
     
-    session.pop('inputs', None)  # Clear the session after submission
     return redirect(url_for("index"))
-
-
-@app.route('/add', methods=['POST'])
-def handle_add():
-    username = auth.get_user().get("name")
-    host = request.form.get('host')
-    category = request.form.get("category")
-
-    print(host)
-
-    if not host or not category:
-        flash("Both Host and Category are required.", "error")
-        return redirect(url_for('index'))
-
-    user_data = {
-        'username': username,
-        'host': host,
-        'category': category
-    }
-
-    print(user_data)
-
-    if 'inputs' not in session:
-        session['inputs'] = []
-    session['inputs'].append(user_data)
-    session.modified = True  # Mark session as modified
-
-    print(session.get('inputs', []))
-    
-    flash("Host added successfully.", "success")
-    return redirect(url_for('index'))
 
 
 

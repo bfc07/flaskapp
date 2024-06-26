@@ -1,17 +1,45 @@
-function openForm() {
-    document.getElementById("popup-window").style.display = "block";
-}
+let inputs = [];
 
-function closeForm() {
-    document.getElementById("popup-window").style.display = "none";
-}
+function addInput() {
+    const field1 = document.getElementById('field1').value;
+    const field2 = document.getElementById('field2').value;
 
-function validateForm() {
-    var host = document.getElementById("host").value;
-    if (host === "") {
-        alert("Host field is required!");
-        return false; // Prevent form submission
+    if (field1 && field2) {
+        inputs.push({ field1, field2 });
+        displayInputs();
+        document.getElementById('field1').value = '';
+        document.getElementById('field2').value = '';
+    } else {
+        alert('Both fields are required');
     }
-    closeForm();
-    return true; // Allow form submission
+}
+
+function displayInputs() {
+    const inputList = document.getElementById('inputList');
+    inputList.innerHTML = '';
+    inputs.forEach((input, index) => {
+        inputList.innerHTML += `<li>${input.field1} <br/> ${input.field2} <button onclick="removeInput(${index})">&times;</button></li> <br/>`;
+    });
+    document.getElementById('hiddenInputs').value = JSON.stringify(inputs);
+}
+
+function removeInput(index) {
+    inputs.splice(index, 1);
+    displayInputs();
+}
+
+
+async function submitForm() {
+    if (inputs.length > 0) {
+        const response = await fetch('/submit', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ inputs }),
+        });
+        
+    } else {
+        alert('Please add at least one input');
+    }
 }
