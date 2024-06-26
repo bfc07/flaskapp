@@ -18,9 +18,13 @@ function displayInputs() {
     const inputList = document.getElementById('inputList');
     inputList.innerHTML = '';
     inputs.forEach((input, index) => {
-        inputList.innerHTML += `<li>${input.field1} <br/> ${input.field2} <button onclick="removeInput(${index})">&times;</button></li> <br/>`;
+        const li = document.createElement('li');
+        li.innerHTML = `${input.field1} <br/> ${input.field2} <button onclick="removeInput(${index})">&times;</button>`;
+        inputList.appendChild(li);
     });
 }
+
+
 
 function removeInput(index) {
     inputs.splice(index, 1);
