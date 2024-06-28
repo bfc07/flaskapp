@@ -21,7 +21,7 @@ function displayInputs() {
         const li = document.createElement('li');
         const div = document.createElement('div');
         div.className = 'input-content';
-        div.innerHTML = `${input.field1} <br/> ${input.field2}`;
+        div.innerHTML = `${input.field1} <br/><br/> ${input.field2}`;
         
         const button = document.createElement('button');
         button.innerHTML = '&times;';

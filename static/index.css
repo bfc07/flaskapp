@@ -14,7 +14,10 @@ body {
     padding: 20px;
     border-radius: 10px;
     width: 80%;
-    max-width: 800px;
+    max-width: 1000px;
+    height: auto;
+    display: flex;
+    flex-direction: column;
 }
 
 .top-bar {
@@ -47,6 +50,8 @@ body {
     background-color: #e2e7e9;
     padding: 20px;
     border-radius: 10px;
+    display: flex;
+    flex-direction: column;
 }
 
 .input-bar {
@@ -67,6 +72,7 @@ body {
     border-radius: 5px;
     border: 1px solid #ccc;
     margin-right: 20px;
+    flex: 1;
 }
 
 .input-bar button {
@@ -86,7 +92,7 @@ body {
     background-color: #d9dee1;
     padding: 20px;
     border-radius: 10px;
-    height: 200px;
+    height: 300px;
     overflow-y: auto;
     margin-bottom: 20px;
 }
