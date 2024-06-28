@@ -104,20 +104,28 @@ body {
     margin-bottom: 10px;
     border-radius: 5px;
     word-wrap: break-word;
-    position: relative;
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    position: relative;
+    overflow-wrap: break-word;
+}
+
+.input-content {
+    flex-grow: 1;
+    word-break: break-all;
+    word-wrap: break-word;
 }
 
 .reserved-box li button {
-    align-self: flex-end;
     background-color: #00646e;
     color: white;
     border: none;
     border-radius: 5px;
     padding: 5px 10px;
     cursor: pointer;
-    margin-top: 10px;
+    margin-left: 10px;
+    align-self: flex-start;
 }
 
 .reserved-box li button:hover {

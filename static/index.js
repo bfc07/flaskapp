@@ -19,7 +19,16 @@ function displayInputs() {
     inputList.innerHTML = '';
     inputs.forEach((input, index) => {
         const li = document.createElement('li');
-        li.innerHTML = `${input.field1} <br/> ${input.field2} <button onclick="removeInput(${index})">&times;</button>`;
+        const div = document.createElement('div');
+        div.className = 'input-content';
+        div.innerHTML = `${input.field1} <br/> ${input.field2}`;
+        
+        const button = document.createElement('button');
+        button.innerHTML = '&times;';
+        button.onclick = function() { removeInput(index); };
+        
+        li.appendChild(div);
+        li.appendChild(button);
         inputList.appendChild(li);
     });
 }
