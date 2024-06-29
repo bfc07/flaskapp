@@ -79,14 +79,20 @@ def handle_submit():
     inputs = data.get('inputs', [])
 
     for item in inputs:
-        input = {
-            "username":username,
-            "host":item['field1'],
-            "category":item['field2'],
-            "time":time
-        }
+        input = Input(
+            username= username,
+            host= item['field1'],
+            category= item['field2'],
+            time= time
+        )
 
-        print(input)
+        try:
+            db.session.add(input)
+            db.session.commit()
+            flash('success', 'success')
+        except:
+            print('error')
+            flash('error', 'error')
 
     return redirect(url_for("index"))
 
