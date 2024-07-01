@@ -1,7 +1,7 @@
 let inputs = [];
 
 function addInput() {
-    const field1 = document.getElementById('field1').value;
+    const field1 = document.getElementById('field1').value.trim();
     const field2 = document.getElementById('field2').value;
 
     if (field1 && field2) {

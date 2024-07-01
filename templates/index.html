@@ -15,24 +15,22 @@
         <hr class="hr-line">
 
         <div class="form-container">
-            <form id="inputsForm" action="/submit" method="post">
-                <div class="input-bar">
-                    <label for="field1">Host</label>
-                    <input type="text" id="field1" name="field1">
-                    <label for="field2">Category</label>
-                    <select id="field2" name="category" required>
-                        <option value="" disabled selected>Select a category</option>
-                        <option value="Category1">Category1</option>
-                        <option value="Category2">Category2</option>
-                        <option value="Category3">Category3</option>
-                    </select>
-                    <button type="button" onclick="addInput()">Add</button>
-                </div>
-                <div class="reserved-box">
-                    <ul id="inputList"></ul>
-                </div>
-                <button type="button" class="submit-button" onclick="submitForm()">Submit</button>
-            </form>
+            <div class="input-bar">
+                <label for="field1">Host</label>
+                <input type="text" id="field1" name="field1">
+                <label for="field2">Category</label>
+                <select id="field2" name="category" required>
+                    <option value="" disabled selected>Select a category</option>
+                    <option value="Category1">Category1</option>
+                    <option value="Category2">Category2</option>
+                    <option value="Category3">Category3</option>
+                </select>
+                <button type="button" onclick="addInput()">Add</button>
+            </div>
+            <div class="reserved-box">
+                <ul id="inputList"></ul>
+            </div>
+            <button type="button" class="submit-button" onclick="submitForm()">Submit</button>
         </div>
 
         {% with messages = get_flashed_messages(with_categories=true) %}
