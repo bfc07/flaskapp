@@ -5,7 +5,7 @@ function addInput() {
     const category = document.getElementById('category').value;
 
     if (host && category) {
-        inputs.push({ field1: host, field2: category });
+        inputs.push({ host: host, category: category });
         displayInputs();
         document.getElementById('host').value = '';
         document.getElementById('category').value = '';
@@ -24,11 +24,11 @@ function displayInputs() {
         const tr = document.createElement('tr');
 
         const tdHost = document.createElement('td');
-        tdHost.textContent = input.field1;
+        tdHost.textContent = input.host;
         tr.appendChild(tdHost);
 
         const tdCategory = document.createElement('td');
-        tdCategory.textContent = input.field2;
+        tdCategory.textContent = input.category;
         tr.appendChild(tdCategory);
 
         const tdButton = document.createElement('td');

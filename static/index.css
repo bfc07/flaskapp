@@ -123,8 +123,6 @@ body {
 }
 
 
-
-
 #table {
     width: 100%;
     border-collapse: collapse;
@@ -133,7 +131,7 @@ body {
 
 #table th, 
 #table td {
-    border: 1px solid #ddd;
+    border-bottom: 1px solid black;
     padding: 8px;
     text-align: left;
     word-wrap: break-word;
