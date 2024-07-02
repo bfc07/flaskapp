@@ -78,21 +78,7 @@ def handle_submit():
     data = request.get_json()
     inputs = data.get('inputs', [])
 
-    for item in inputs:
-        input = Input(
-            username= username,
-            host= item['field1'],
-            category= item['field2'],
-            time= time
-        )
-
-        try:
-            db.session.add(input)
-            db.session.commit()
-            flash('success', 'success')
-        except:
-            print('error')
-            flash('error', 'error')
+    print(inputs)
 
     return redirect(url_for("index"))
 

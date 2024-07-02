@@ -50,19 +50,22 @@ function removeInput(index) {
 }
 
 
-async function submitForm() {
-    if (inputs.length > 0) {
-        const response = await fetch('/submit', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ inputs }),
-        });
-        document.getElementById('inputList').innerHTML = '';
-        inputs = [];
 
-    } else {
-        alert('Please add at least one input');
-    }
-}
+document.getElementById('submit').addEventListener('submit', function(event) {
+    event.preventDefault();
+    fetch('/submit', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ inputs }),
+    })
+    .catch(error => console.error('Error:', error));
+
+    document.getElementById('table').innerHTML = `<tr>
+                    <th>Host</th>
+                    <th>Category</th>
+                    <th></th>
+                </tr>`;
+    inputs = [];
+});
