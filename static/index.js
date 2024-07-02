@@ -42,14 +42,10 @@ function displayInputs() {
     });
 }
 
-
-
 function removeInput(index) {
     inputs.splice(index, 1);
     displayInputs();
 }
-
-
 
 document.getElementById('submit').addEventListener('submit', function(event) {
     event.preventDefault();
@@ -60,12 +56,16 @@ document.getElementById('submit').addEventListener('submit', function(event) {
         },
         body: JSON.stringify({ inputs }),
     })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            // Clear inputs and display success message
+            alert('Data successfully submitted!');
+        } else {
+            alert('Error submitting data: ' + data.error);
+        }
+        inputs = [];
+        displayInputs();
+    })
     .catch(error => console.error('Error:', error));
-
-    document.getElementById('table').innerHTML = `<tr>
-                    <th>Host</th>
-                    <th>Category</th>
-                    <th></th>
-                </tr>`;
-    inputs = [];
 });

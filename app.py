@@ -1,6 +1,6 @@
 import identity.web
 import requests
-from flask import Flask, redirect, render_template, request, session, url_for, flash, session
+from flask import Flask, redirect, render_template, request, session, url_for, session, jsonify
 from flask_session import Session
 from datetime import datetime
 
@@ -73,14 +73,25 @@ def index():
 
 @app.route("/submit", methods=['POST'])
 def handle_submit():
-    username=auth.get_user().get('name')
+    username = auth.get_user().get('name')
     time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     data = request.get_json()
     inputs = data.get('inputs', [])
 
-    print(inputs)
-
-    return redirect(url_for("index"))
+    try:
+        for item in inputs:
+            input = Input(
+                username=username,
+                host=item['host'],
+                category=item['category'],
+                time=time
+            )
+            db.session.add(input)
+        db.session.commit()
+        return jsonify({'success': True})
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({'success': False, 'error': str(e)})
 
 
 
