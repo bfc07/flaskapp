@@ -83,7 +83,7 @@ body {
     background-color: #004c52;
 }
 
-.reserved-box {
+.input-display {
     background-color: #d9dee1;
     padding: 20px;
     border-radius: 10px;
@@ -92,25 +92,6 @@ body {
     margin-bottom: 20px;
 }
 
-.reserved-box ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    color: #00646e;
-}
-
-.reserved-box li {
-    background-color: #f1f3f4;
-    padding: 15px;
-    margin-bottom: 10px;
-    border-radius: 5px;
-    word-wrap: break-word;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    position: relative;
-    overflow-wrap: break-word;
-}
 
 .input-content {
     flex-grow: 1;
@@ -118,20 +99,6 @@ body {
     word-wrap: break-word;
 }
 
-.reserved-box li button {
-    background-color: #00646e;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    padding: 5px 10px;
-    cursor: pointer;
-    margin-left: 10px;
-    align-self: flex-start;
-}
-
-.reserved-box li button:hover {
-    background-color: #004c52;
-}
 
 .submit-button {
     background-color: #00646e;
@@ -153,4 +120,36 @@ body {
     height: 1px;
     background-color: #cccccc;
     margin: 20px 0;
+}
+
+
+
+
+#table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed
+}
+
+#table th, 
+#table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+    word-wrap: break-word;
+    vertical-align: top;
+}
+
+
+#table th:nth-child(1), 
+#table td:nth-child(1),
+#table th:nth-child(2), 
+
+#table td:nth-child(2) {
+    width: 45%;
+}
+
+#table th:nth-child(3), 
+#table td:nth-child(3) {
+    width: 10%;
 }

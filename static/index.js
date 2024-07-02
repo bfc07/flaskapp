@@ -1,35 +1,44 @@
 let inputs = [];
 
 function addInput() {
-    const field1 = document.getElementById('field1').value.trim();
-    const field2 = document.getElementById('field2').value;
+    const host = document.getElementById('host').value.trim();
+    const category = document.getElementById('category').value;
 
-    if (field1 && field2) {
-        inputs.push({ field1, field2 });
+    if (host && category) {
+        inputs.push({ field1: host, field2: category });
         displayInputs();
-        document.getElementById('field1').value = '';
-        document.getElementById('field2').value = '';
+        document.getElementById('host').value = '';
+        document.getElementById('category').value = '';
     } else {
         alert('Both fields are required');
     }
 }
 
 function displayInputs() {
-    const inputList = document.getElementById('inputList');
-    inputList.innerHTML = '';
+    const table = document.getElementById('table');
+    while (table.rows.length > 1) {
+        table.deleteRow(1);
+    }
+
     inputs.forEach((input, index) => {
-        const li = document.createElement('li');
-        const div = document.createElement('div');
-        div.className = 'input-content';
-        div.innerHTML = `${input.field1} <br/><br/> ${input.field2}`;
-        
+        const tr = document.createElement('tr');
+
+        const tdHost = document.createElement('td');
+        tdHost.textContent = input.field1;
+        tr.appendChild(tdHost);
+
+        const tdCategory = document.createElement('td');
+        tdCategory.textContent = input.field2;
+        tr.appendChild(tdCategory);
+
+        const tdButton = document.createElement('td');
         const button = document.createElement('button');
         button.innerHTML = '&times;';
         button.onclick = function() { removeInput(index); };
-        
-        li.appendChild(div);
-        li.appendChild(button);
-        inputList.appendChild(li);
+        tdButton.appendChild(button);
+        tr.appendChild(tdButton);
+
+        table.appendChild(tr);
     });
 }
 
