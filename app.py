@@ -8,7 +8,6 @@ import app_config
 
 # connection to database
 from models import db, Input
-from sqlalchemy.exc import IntegrityError
 
 
 
