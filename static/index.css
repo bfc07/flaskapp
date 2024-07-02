@@ -20,14 +20,14 @@ body {
     flex-direction: column;
 }
 
-.top-bar {
+.profile {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
 }
 
-.top-bar p {
+.profile p {
     margin: 0;
     color: #00646e;
 }
@@ -51,23 +51,18 @@ body {
     padding: 20px;
     border-radius: 10px;
     display: flex;
-    flex-direction: column;
-}
-
-.input-bar {
-    display: flex;
-    justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
+    flex-direction: row;
 }
 
-.input-bar label {
+
+.form-container label {
     color: #00646e;
     margin-right: 10px;
 }
 
-.input-bar input, 
-.input-bar select {
+.form-container input, 
+.form-container select {
     padding: 10px;
     border-radius: 5px;
     border: 1px solid #ccc;
@@ -75,7 +70,7 @@ body {
     flex: 1;
 }
 
-.input-bar button {
+.form-container button {
     background-color: #00646e;
     color: white;
     padding: 10px 20px;
@@ -84,7 +79,7 @@ body {
     cursor: pointer;
 }
 
-.input-bar button:hover {
+.form-container button:hover {
     background-color: #004c52;
 }
 
