@@ -59,7 +59,6 @@ document.getElementById('submit').addEventListener('submit', function(event) {
     .then(response => response.json())
     .then(data => {
         if (data.success) {
-            // Clear inputs and display success message
             alert('Data successfully submitted!');
         } else {
             alert('Error submitting data: ' + data.error);
