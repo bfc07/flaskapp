@@ -37,6 +37,7 @@ auth = identity.web.Auth(
 )
 
 
+
 @app.route("/login")
 def login():
     return render_template("login.html", **auth.log_in(
@@ -44,6 +45,7 @@ def login():
         redirect_uri=url_for("auth_response", _external=True), # Optional. If present, this absolute URL must match your app's redirect_uri registered in Azure Portal
         prompt="select_account",  # Optional. More values defined in  https://openid.net/specs/openid-connect-core-1_0.html#AuthRequest
     ))
+
 
 
 @app.route(app_config.REDIRECT_PATH)
@@ -54,9 +56,11 @@ def auth_response():
     return redirect(url_for("index"))
 
 
+
 @app.route("/logout")
 def logout():
     return redirect(auth.log_out(url_for("index", _external=True)))
+
 
 
 @app.route("/")
@@ -70,6 +74,7 @@ def index():
     return render_template('index.html', user=auth.get_user())
 
 
+
 @app.route("/submit", methods=['POST'])
 def handle_submit():
     username = auth.get_user().get('name')
@@ -79,13 +84,17 @@ def handle_submit():
 
     try:
         for item in inputs:
-            input = Input(
-                username=username,
-                host=item['host'],
-                category=item['category'],
-                time=time
-            )
-            db.session.add(input)
+            hosts = item['host'].split(';')
+            category=item['category'],
+            
+            for host in hosts:
+                input = Input(
+                    username=username,
+                    host=host,
+                    category=category,
+                    time=time
+                )
+                db.session.add(input)
         db.session.commit()
         return jsonify({'success': True})
     except Exception as e:
